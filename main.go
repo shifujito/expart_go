@@ -1,34 +1,28 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+import "fmt"
 
-type Counter struct {
-	Name string
-
-	m     sync.RWMutex
-	count int
+type Chip struct {
+	Number int
 }
 
-func (c *Counter) Increment() int {
-	c.m.Lock()
-	defer c.m.Unlock()
-	c.count++
-	return c.count
+type Card struct {
+	string
+	Chip
+	Number int
 }
 
-func (c *Counter) View() int {
-	c.m.RLock()
-	defer c.m.RUnlock()
-	return c.count
+func (c *Chip) Scan() {
+	fmt.Println(c.Number)
 }
 
 func main() {
-	c := &Counter{
-		Name: "Access",
+	c := Card{
+		string: "Credit",
+		Chip: Chip{
+			Number: 1212,
+		},
+		Number: 5454,
 	}
-	fmt.Println(c.Increment())
-	fmt.Println(c.View())
+	c.Scan()
 }
