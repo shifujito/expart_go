@@ -5,18 +5,11 @@ import (
 )
 
 func main() {
-	m := map[string]int{
-		"hoge": 42,
-		"fuga": 33,
-	}
+	var m map[string]int
+	fmt.Println(m == nil)
 
-	age := m["John"]
-	fmt.Println(age)
+	fmt.Println(len(m))
 
-	age, ok := m["Jane"]
-	fmt.Println(age, ok)
-}
-
-func even(n int) bool {
-	return n%2 == 0
+	v, ok := m["John"]
+	fmt.Println(v, ok)
 }
