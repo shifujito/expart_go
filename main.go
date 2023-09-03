@@ -5,23 +5,16 @@ import (
 )
 
 func main() {
-	src := []int{1, 2, 3, 4, 5}
+	m := map[string]int{
+		"hoge": 42,
+		"fuga": 33,
+	}
 
-	dst := src[:0]
-	fmt.Println(dst)
-	fmt.Println(src)
-	for _, v := range src {
-		if even(v) {
-			dst = append(dst, v)
-		}
-	}
-	fmt.Println(dst)
-	fmt.Println(src)
-	for i := len(dst); i < len(src); i++ {
-		src[i] = 0
-	}
-	fmt.Println(dst)
-	fmt.Println(src)
+	age := m["John"]
+	fmt.Println(age)
+
+	age, ok := m["Jane"]
+	fmt.Println(age, ok)
 }
 
 func even(n int) bool {
