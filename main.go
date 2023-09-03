@@ -1,20 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+type Counter struct {
+	Name string
+
+	m     sync.RWMutex
+	count int
+}
+
+func (c *Counter) Increment() int {
+	c.m.Lock()
+	defer c.m.Unlock()
+	c.count++
+	return c.count
+}
+
+func (c *Counter) View() int {
+	c.m.RLock()
+	defer c.m.RUnlock()
+	return c.count
+}
 
 func main() {
-	followers := []string{"John", "Richard", "John", "Jane", "Jane", "Alan"}
-	unique := make([]string, 0, len(followers))
-
-	m := make(map[string]struct{})
-
-	for _, v := range followers {
-		if _, ok := m[v]; ok {
-			continue
-		}
-		unique = append(unique, v)
-		m[v] = struct{}{}
+	c := &Counter{
+		Name: "Access",
 	}
-
-	fmt.Println(unique)
+	fmt.Println(c.Increment())
+	fmt.Println(c.View())
 }
