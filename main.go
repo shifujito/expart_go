@@ -2,16 +2,43 @@ package main
 
 import "fmt"
 
-type Hex int
+type Person struct{}
 
-func (h Hex) String() string {
-	return fmt.Sprintf("%x", int(h))
+type Footstepper interface {
+	Footsteps() string
 }
 
-func main() {
-	fv := Hex(1024).String
-	fmt.Println(fv())
+type Crier interface {
+	Cry() string
+}
 
-	fe := Hex.String
-	fmt.Println(fe(1024))
+type CryFootstepper interface {
+	Crier
+	Footstepper
+}
+
+func (p *Person) Cry() string {
+	return "Hi"
+}
+
+func (p *Person) Footsteps() string {
+	return "Pitapat"
+}
+
+type PartyPeople struct {
+	Person
+}
+
+func (p *PartyPeople) Cry() string {
+	return "Sup?"
+}
+
+var cf CryFootstepper
+
+func main() {
+	cf = &Person{}
+	fmt.Println(cf.Cry(), cf.Footsteps())
+
+	cf = &PartyPeople{}
+	fmt.Println(cf.Cry(), cf.Footsteps())
 }
