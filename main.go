@@ -1,15 +1,20 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	var m map[string]int
-	fmt.Println(m == nil)
+	followers := []string{"John", "Richard", "John", "Jane", "Jane", "Alan"}
+	unique := make([]string, 0, len(followers))
 
-	fmt.Println(len(m))
+	m := make(map[string]struct{})
 
-	v, ok := m["John"]
-	fmt.Println(v, ok)
+	for _, v := range followers {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		unique = append(unique, v)
+		m[v] = struct{}{}
+	}
+
+	fmt.Println(unique)
 }
