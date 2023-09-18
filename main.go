@@ -2,43 +2,17 @@ package main
 
 import "fmt"
 
-type Person struct{}
-
-type Footstepper interface {
-	Footsteps() string
-}
-
-type Crier interface {
-	Cry() string
-}
-
-type CryFootstepper interface {
-	Crier
-	Footstepper
-}
-
-func (p *Person) Cry() string {
-	return "Hi"
-}
-
-func (p *Person) Footsteps() string {
-	return "Pitapat"
-}
-
-type PartyPeople struct {
-	Person
-}
-
-func (p *PartyPeople) Cry() string {
-	return "Sup?"
-}
-
-var cf CryFootstepper
-
 func main() {
-	cf = &Person{}
-	fmt.Println(cf.Cry(), cf.Footsteps())
+	m := map[string]int{
+		"hello": 5,
+		"world": 0,
+	}
+	v, ok := m["hello"]
+	fmt.Println(v, ok) // 5, true
 
-	cf = &PartyPeople{}
-	fmt.Println(cf.Cry(), cf.Footsteps())
+	v, ok = m["world"]
+	fmt.Println(v, ok) // 0, true
+
+	v, ok = m["hoge"]
+	fmt.Println(v, ok) // 0, false
 }
